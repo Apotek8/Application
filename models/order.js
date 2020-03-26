@@ -6,16 +6,26 @@ module.exports = (sequelize, DataTypes) => {
     {
       MedicineId: DataTypes.INTEGER,
       PatientId: DataTypes.INTEGER,
+      amount: DataTypes.INTEGER,
       date: DataTypes.DATE,
       information: DataTypes.STRING
     },
     {
       sequelize,
-      modelName : "Order"
+      modelName : "Order",
+      hooks :
+      {
+        beforeCreate : (data, option) =>
+        {
+          data.information = "Pending"
+        }
+      }
     }
   )
   Order.associate = function(models) {
     // associations can be defined here
+    Order.belongsTo(models.Medicine);
+    Order.belongsTo(models.Patient);
   };
   return Order;
 };

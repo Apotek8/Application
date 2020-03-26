@@ -1,4 +1,4 @@
-<form action="/<%= as %>/login" method="GET">
+<form action="/<%= as %>/login" method="POST">
     <label for="username">Username</label><br>
     <input name="username" id="username"><br>
     <label for="password">Password</label><br>
@@ -6,6 +6,8 @@
     <button>Sign in</button>
     <button><a href="/">Cancel</a></button>
 </form>
+<% if(as == "patient") { %> 
 <form action="/<%= as %>/register" method="GET">
     <button>Register</button>
 </form>
+<% } %> 

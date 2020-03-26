@@ -8,9 +8,24 @@ module.exports = (sequelize, DataTypes) => {
       username :
       {
         type: DataTypes.STRING,
+        unique : false,
         validate :
         {
-          isAlphanumeric: {args : true, msg : "Only Alphanumeric"}
+          isAlphanumeric: {args : true, msg : "Only Alphanumeric"},
+          isExist(value, next)
+          {
+            Patient.findOne({where : {username : value}})
+            .then(data => 
+              {
+                if(data)
+                {
+                  const error = new Error("Username already exist");
+                  next(error);
+                }
+                else
+                  next();
+              })
+          }
         }
       },
       name: DataTypes.STRING,

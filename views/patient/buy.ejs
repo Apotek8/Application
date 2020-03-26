@@ -6,6 +6,19 @@
     <title>Buy Medicine</title>
 </head>
 <body>
-    
+    Choose Medicine <br><br>
+    <form action="/patient/order" method="POST">
+    Medicine Name <br>
+    <select name="MedicineId">
+        <option selected>--SELECT--</option>
+    <% for(let i in data) { %>
+        <option value=<%= data[i].id %>> <%= data[i].name %> </option>
+        <% } %>  
+    </select><br>
+    Amount <br>
+    <input name="amount" type="number"><br>
+    <button>Order</button>
+    <button><a href="/patient">Cancel</a></button>
+    </form>
 </body>
 </html>

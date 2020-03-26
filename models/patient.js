@@ -10,7 +10,20 @@ module.exports = (sequelize, DataTypes) => {
         validate :
         {
           isAlphanumeric: {msg : "Only Alphanumeric"},
-          notContains : {msg : "cannot contains space"}
+          isExist(value, next)
+          {
+            Patient.findOne({where : {username : value}})
+            .then(data => 
+              {
+                if(data)
+                {
+                  const error = new Error("Username already exist");
+                  next(error);
+                }
+                else
+                  next();
+              })
+          }
         }
       },
       name: DataTypes.STRING,
@@ -19,7 +32,6 @@ module.exports = (sequelize, DataTypes) => {
       email: 
       {
         type : DataTypes.STRING,
-        unique: true,
         isEmail: {msg : "Only email format"}
       },
       phone: 
@@ -38,17 +50,9 @@ module.exports = (sequelize, DataTypes) => {
         {
           data.money = 0;
         }
-      },
-      validate:
-      {
-        notNull(value) 
-        {
-          if(value == null || value == "")
-            throw new Error("Must be filled")
-        }
       }
     }
-  )
+  );
   Patient.associate = function(models) {
     // associations can be defined here
     Patient.belongsToMany(models.Medicine, {through : "Order"});

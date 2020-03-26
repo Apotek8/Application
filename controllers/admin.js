@@ -11,49 +11,71 @@ class AdminController
 
     static add(req, res)
     {
-        // res.send(req.body)
         let {name, username, password, address, email, phone} = req.body;
         let data = {name, username, password, address, email, phone};
         bcrypt.genSalt(saltRounds, function(err, salt) {
             bcrypt.hash(data.password, salt, function(err, hash) {
                 // Store hash in your password DB.
                 data.password = hash;
+                // console.log(data)
                 console.log(data)
+                Admin.create(data)
+                .then(() => res.redirect("/admin"))
+                // .then(data => res.send(data))
+                .catch(err => res.send(err));
             });
         });
-        console.log(data)
-        Admin.removeAttribute("id");
-        Admin.create(data)
-        .then(() => res.redirect("/admin/login"))
-        // .then(data => res.send(data))
-        .catch(err => res.send(err));
+        
     }
 
     static formLogin(req, res)
     {
         req.app.locals.as = "admin";
-        req.session.isLogin = false;
         res.render("./admin/login");
     }
 
     static login(req, res)
     {
-        let {username, password} = req.query;
-        Admin.findByPk(username)
+        let {username, password} = req.body;
+        Admin.findOne({where : {username}})
         .then((data) =>
         {
-            bcrypt.compare(password, data.password, function(err, result) {
+            if(bcrypt.compareSync(password, data.password))
+            {
+                req.session.username = data.id;
                 req.session.isLogin = true;
-                res.redirect("/admin")
-                // result == true
-            });
+                res.redirect("/admin");
+            }
+            else
+                res.redirect("/admin/login");
         })
-        .catch(err => res.send(err));
+        .catch(err => res.redirect("/admin/login"));
     }
-    static showProfile(req, res)
+
+    static showOrder(req, res)
     {
-        const {username,  password} = req.session;
-        escape.send(req.session)
+        Order.findAll({include : [Patient, Medicine]})
+        .then(data => res.render("./admin/order", {data}))
+        // .then(data =>  res.send(data))
+        .catch(err => res.send(err))
+    }  
+
+    static update(req, res)
+    {
+        let {information} = req.body;
+        let {PatientId, MedicineId} = req.query;
+        let id = req.params.id + 1;
+        Order.update({information}, {where : {MedicineId}})
+        // .then(data =>  res.send(data))
+        .then(() => res.redirect("/admin/order"))
+        .catch(err => res.send(err))
+    }
+
+    static logout(req, res)
+    {
+        req.session.isLogin = false;
+        req.session.username = 0;
+        res.redirect("/admin/login")
     }
 }
 

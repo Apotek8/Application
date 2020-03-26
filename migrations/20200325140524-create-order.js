@@ -14,6 +14,9 @@ module.exports = {
       PatientId: {
         type: Sequelize.INTEGER
       },
+      amount: {
+        type: Sequelize.INTEGER
+      },
       date: {
         type: Sequelize.DATE
       },
