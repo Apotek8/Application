@@ -1,0 +1,10 @@
+[
+    {
+        "name" : "Admin",
+        "username" : "admin",
+        "password" : "admin",
+        "address" : "Jakarta",
+        "email" : "admin@apotek8.co.id",
+        "phone" : "0811223344"
+    }
+]

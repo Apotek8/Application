@@ -1,0 +1,22 @@
+[
+    {
+        "name" : "Acarbose 50 mg",
+        "amount" : 20,
+        "price" : 14000
+    },
+    {
+        "name" : "Acetazolamide 250 mg",
+        "amount" : 20,
+        "price" : 75000
+    },
+    {
+        "name" : "Actifed Cough Susp 60ml (Red)",
+        "amount" : 20,
+        "price" : 58900
+    },
+    {
+        "name" : "Acyclovir 400 mg",
+        "amount" : 20,
+        "price" : 29000
+    }
+]
