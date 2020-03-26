@@ -11,7 +11,7 @@ app.use(session({
     secret: 'black cat',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    // cookie: { secure: true }
   }))
 
 app.listen(PORT, () => console.log(`Success running on Port ${PORT}`));

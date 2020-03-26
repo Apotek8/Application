@@ -6,27 +6,19 @@
     <title>Admin</title>
 </head>
 <body>
-    <nav>
-        <div>
-            <a href="/">Home</a>
-        </div>
-        <div>
-            <a href="/">Home</a>
-        </div>
-        <div>
-            <a href="/">Home</a>
-        </div>
-    </nav>
-    <label for="search">Search</label>
-    <input name="search" id="search"><br>
+    <%- include("nav.ejs") %>
     <table border="1">
         <thead>
             <th>Order ID</th>
             <th>Patient's Name</th>
+            <th>Order ID</th>
+            <th>Patient's Name</th>
             <th>Medicine Name</th>
-            <th>Amount of Medicine</th>
-            <th>Action</th>
+            <th>Date</th>
+            <th>Actions</th>
         </thead>
-    </table>
+        <% for(let i in data) { %>
+        <% } %> 
+    </table> 
 </body>
 </html>

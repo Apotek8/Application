@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   class Admin extends sequelize.Sequelize.Model {}
   Admin.init
@@ -9,8 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         validate :
         {
-          isAlphanumeric: {msg : "Only Alphanumeric"},
-          notContains : {msg : "cannot contains space"}
+          isAlphanumeric: {args : true, msg : "Only Alphanumeric"}
         }
       },
       name: DataTypes.STRING,
@@ -20,12 +20,32 @@ module.exports = (sequelize, DataTypes) => {
       {
         type : DataTypes.STRING,
         unique: true,
-        isLowercase: {msg : "Only Lower Case"}
+        validate :
+        {
+          isEmail: true,
+          isLowercase: {args : true, msg : "Only Lower Case"}
+        }
       },
-      phone: DataTypes.STRING,
-      income: DataTypes.INTEGER,
+      phone: 
+      {
+        type : DataTypes.STRING,
+        unique : true,
+        validate :
+        {
+          isNumeric : {msg : "Must numeric"}
+        }
+      },
+      income: DataTypes.NUMBER,
     },
     {
+      validate:
+      {
+        notNull() 
+        {
+          if(this.username == "" || this.name == "" || this.password == "" || this.address == "" || this.email == "" || this.phone == "")
+            throw new Error("All data must be filled")
+        }
+      },
       sequelize,
       modelName : "Admin",
       hooks:
@@ -33,14 +53,6 @@ module.exports = (sequelize, DataTypes) => {
         beforeCreate: (data, option) =>
         {
           data.income = 0;
-        }
-      },
-      validate:
-      {
-        notNull(value) 
-        {
-          if(value == null || value == "")
-            throw new Error("Must be filled")
         }
       }
     }

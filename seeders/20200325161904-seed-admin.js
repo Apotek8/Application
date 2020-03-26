@@ -1,7 +1,13 @@
 'use strict';
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const fs = require("fs");
+
 const data = JSON.parse(fs.readFileSync("./seed-data/admin.json", "utf8"));
 data.forEach(element => {
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hash = bcrypt.hashSync(element.password, salt);
+  element.password = hash;
   element.createdAt = new Date();
   element.updatedAt = new Date();
 });
