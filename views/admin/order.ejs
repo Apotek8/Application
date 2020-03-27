@@ -24,9 +24,9 @@
                 <td><%= data[i].date %> </td>
                 <td><%= data[i].information %> </td>
                 <td>
-                    <form name="information" action="/admin/update/<%= data[i].id %>" method="POST">
-                        <button value="accept">Accept</button>
-                        <button value="deny">Deny</button>
+                    <form action="/admin/update/<%= data[i].id %>" method="POST">
+                        <button name="information" value="Accept">Accept</button>
+                        <button name="information" value="Deny">Deny</button>
                     </form>
                 </td>
             </tr>
