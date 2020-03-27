@@ -10,7 +10,7 @@
     <%- include("./partials/nav.ejs") %>
     <table border="1">
         <thead>
-            <!-- <th>Order ID</th> -->
+            <th>Order ID</th>
             <th>Patient's Name</th>
             <th>Medicine Name</th>
             <th>Date</th>
@@ -18,7 +18,7 @@
         </thead>
         <% for(let i in data) { %>
             <tr>
-                <!-- <td><%= data[i].id %> </td> -->
+                <td><%= data[i].id %> </td>
                 <td><%= data[i].Patient.name %> </td>
                 <td><%= data[i].Medicine.name %> </td>
                 <td><%= data[i].date %> </td>

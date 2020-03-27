@@ -64,10 +64,12 @@ class AdminController
     {
         let {information} = req.body;
         let {PatientId, MedicineId} = req.query;
-        let id = req.params.id + 1;
-        Order.update({information}, {where : {MedicineId}})
-        // .then(data =>  res.send(data))
-        .then(() => res.redirect("/admin/order"))
+        let {id} = req.params;
+        console.log(req.params)
+        Order.update({information}, {where : {id}})
+        // Order.findAll()
+        .then(data =>  res.send(data))
+        // .then(() => res.redirect("/admin/order"))
         .catch(err => res.send(err))
     }
 

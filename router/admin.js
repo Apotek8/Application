@@ -25,7 +25,7 @@ router.get("/order", (req, res, next) =>
     else
         res.redirect("/admin");
 }, Controller.showOrder);
-router.post("/update", Controller.update);
+router.post("/update/:id", Controller.update);
 router.get("/logout", Controller.logout);
 
 module.exports = router;

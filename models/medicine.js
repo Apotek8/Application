@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   )
   Medicine.associate = function(models) {
     // associations can be defined here
-    Medicine.belongsToMany(models.Patient, {through : "Order"});
+    Medicine.belongsToMany(models.Patient, {through : "Orders"});
   };
   return Medicine;
 };

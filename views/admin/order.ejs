@@ -9,7 +9,7 @@
     <%- include("nav.ejs") %> 
     <table border="1">
         <thead>
-            <!-- <th>Order ID</th> -->
+            <th>Order ID</th>
             <th>Patient's Name</th>
             <th>Medicine Name</th>
             <th>Date</th>
@@ -18,13 +18,13 @@
         </thead>
         <% for(let i in data) { %>
             <tr>
-                <!-- <td><%= data[i].id %> </td> -->
+                <td><%= data[i].id %> </td>
                 <td><%= data[i].Patient.name %> </td>
                 <td><%= data[i].Medicine.name %> </td>
                 <td><%= data[i].date %> </td>
                 <td><%= data[i].information %> </td>
                 <td>
-                    <form name="information" action="/admin/update?PatientId=<%= data[i].Patient.id %>&MedicineId=<%= data[i].Medicine.id %> " method="POST">
+                    <form name="information" action="/admin/update/<%= data[i].id %>" method="POST">
                         <button value="accept">Accept</button>
                         <button value="deny">Deny</button>
                     </form>
