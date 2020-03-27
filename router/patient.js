@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Controller = require("../controllers/patient");
+const checkLogin = require("../helper/checkLoginPatient");
 
 router.get("/", (req, res, next) => 
 {
@@ -19,22 +20,8 @@ Controller.formAdd);
 router.post("/register", Controller.add);
 router.get("/login", Controller.formLogin);
 router.post("/login", Controller.login);
-router.get("/order", (req, res, next) => 
-{
-    if(req.session.isLogin)
-        next();
-    else
-        res.redirect("/patient/login");
-},
-    Controller.showMedicine);
-router.post("/order", Controller.createOrder);
-router.get("/history", (req, res, next) => 
-{
-    if(req.session.isLogin)
-        next();
-    else
-        res.redirect("/patient/login");
-},
-    Controller.showOrder);
+router.get("/order", checkLogin, Controller.showMedicine);
+router.post("/order", checkLogin, Controller.createOrder);
+router.get("/history", checkLogin, Controller.showOrder);
 router.get("/logout", Controller.logout)
 module.exports = router;
