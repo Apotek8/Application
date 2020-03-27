@@ -86,6 +86,19 @@ class PatientController
         req.session.username = 0;
         res.redirect("/patient/login")
     }
+
+    static delete(req, res)
+    {
+        let id = req.session.username;
+        Patient.destroy({where : {id}})
+        .then(() => 
+        {
+            req.session.isLogin = false;
+            req.session.username = 0;
+            res.redirect("/")
+        })
+        .catch(err => res.send(err));
+    }
 }
 
 module.exports = PatientController;

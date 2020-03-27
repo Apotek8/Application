@@ -23,5 +23,6 @@ router.post("/login", Controller.login);
 router.get("/order", checkLogin, Controller.showMedicine);
 router.post("/order", checkLogin, Controller.createOrder);
 router.get("/history", checkLogin, Controller.showOrder);
-router.get("/logout", Controller.logout)
+router.get("/logout", Controller.logout);
+router.get("/delete", checkLogin, Controller.delete);
 module.exports = router;
